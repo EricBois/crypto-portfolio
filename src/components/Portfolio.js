@@ -14,6 +14,7 @@ export default function Portfolio(props) {
     const { firebase } = useContext(FirebaseContext);
     const [watch, setWatch] = useState([])
     const [coins, setCoins] = useState([])
+    const url = "https://api.nomics.com/v1/currencies/ticker?key=" + process.env.REACT_APP_NOMICS_API_KEY + "&ids=" + coins
 
     const formik = useFormik({
         initialValues: {
@@ -50,7 +51,7 @@ export default function Portfolio(props) {
         // get all coin names
         const coins = watch.map(coin => coin.ticker)
         await axios
-            .get("https://api.nomics.com/v1/currencies/ticker?key=" + process.env.REACT_APP_NOMICS_API_KEY + "&ids=" + coins)
+            .get(`/cors-proxy/${url}`)
             .then(resp => {
                 setCoins(resp.data)
                 // if coin isnt returned by the api , remove from watch list and db
