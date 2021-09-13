@@ -2,6 +2,7 @@ import './App.css';
 import Portfolio from './components/Portfolio';
 import Home from './components/Home';
 import Navbar from './components/NavBar';
+import Footer from './components/Footer';
 import useAuth from './components/Auth/useAuth';
 import firebase, { FirebaseContext } from './firebase/index';
 
@@ -16,6 +17,7 @@ function App() {
         ) : (
           <Home />
         )}
+        <Footer />
       </>
     </FirebaseContext.Provider>
 

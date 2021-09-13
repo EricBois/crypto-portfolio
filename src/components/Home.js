@@ -13,7 +13,7 @@ export default function Welcome() {
   direction="column"
   alignItems="center"
   justifyContent="center"
-  style={{ minHeight: '60vh' }}
+  style={{ minHeight: '80vh' }}
 >
       { !isNew ?
         <SignIn toggle={() => toggle}/> :
