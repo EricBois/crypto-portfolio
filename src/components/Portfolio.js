@@ -51,7 +51,7 @@ export default function Portfolio(props) {
         const coins = watch.map(coin => coin.ticker)
         // const url = "https://api.nomics.com/v1/currencies/ticker?key=" + process.env.REACT_APP_NOMICS_API_KEY + "&ids=" + coins
         await axios
-            .post(`/api/getTickers`)
+            .post(`/api/getTicker`, coins)
             .then(resp => {
                 setCoins(resp.data)
                 // if coin isnt returned by the api , remove from watch list and db
