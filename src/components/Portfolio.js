@@ -49,7 +49,7 @@ export default function Portfolio(props) {
     async function fetchData() {
         // get all coin names
         const coins = watch.map(coin => coin.ticker)
-        const url = "https://api.nomics.com/v1/currencies/ticker?key=" + process.env.REACT_APP_NOMICS_API_KEY + "&ids=" + coins
+        // const url = "https://api.nomics.com/v1/currencies/ticker?key=" + process.env.REACT_APP_NOMICS_API_KEY + "&ids=" + coins
         await axios
             .post(`/api/getTickers`)
             .then(resp => {
