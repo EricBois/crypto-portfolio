@@ -111,8 +111,9 @@ export default function Portfolio(props) {
                                     label="Holdings"
                                     type="number"
                                     name="holdings"
+                                    style={{backgroundColor: 'white'}}
                                     fullWidth
-                                    variant="outlined"
+                                    variant="filled"
                                     error={formik.touched.holdings && Boolean(formik.errors.holdings)}
                                     helperText={formik.touched.holdings && formik.errors.holdings}
                                 />
@@ -122,13 +123,14 @@ export default function Portfolio(props) {
                                     margin="normal"
                                     label="Ticker  BTC / ADA / ETH ..."
                                     name="ticker"
+                                    style={{backgroundColor: 'white'}}
                                     fullWidth
-                                    variant="outlined"
+                                    variant="filled"
                                     error={formik.touched.ticker && Boolean(formik.errors.ticker)}
                                     helperText={formik.touched.ticker && formik.errors.ticker}
                                 />
                                 <Button
-                                    color="primary"
+                                    style={{backgroundColor: '#4e7a94', color: '#fff'}}
                                     variant="contained"
                                     fullWidth
                                     type="submit"
