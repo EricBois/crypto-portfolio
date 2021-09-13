@@ -8,3 +8,9 @@
   status = 200
   force = true
   headers = {Access-Control-Allow-Origin = "*"}
+
+  [functions]
+  # Directory with serverless functions, including background functions,
+  # to deploy. This is relative to the base directory if one has been set, 
+  # or the root directory if a base hasn’t been set.
+  directory = "functions/"
