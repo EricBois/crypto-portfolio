@@ -14,7 +14,6 @@ export default function Portfolio(props) {
     const { firebase } = useContext(FirebaseContext);
     const [watch, setWatch] = useState([])
     const [coins, setCoins] = useState([])
-    const url = "https://api.nomics.com/v1/currencies/ticker?key=" + process.env.REACT_APP_NOMICS_API_KEY + "&ids=" + coins
 
     const formik = useFormik({
         initialValues: {
@@ -50,6 +49,7 @@ export default function Portfolio(props) {
     async function fetchData() {
         // get all coin names
         const coins = watch.map(coin => coin.ticker)
+        const url = "https://api.nomics.com/v1/currencies/ticker?key=" + process.env.REACT_APP_NOMICS_API_KEY + "&ids=" + coins
         await axios
             .get(`/cors-proxy/${url}`)
             .then(resp => {
