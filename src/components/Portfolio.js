@@ -6,6 +6,7 @@ import validationTickerSchema from './validation/validationTickerSchema';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
 
 var axios = require("axios");
 
@@ -29,17 +30,27 @@ export default function Portfolio(props) {
 
     async function deleteTicker(tick) {
         let arr = watch
-        if (watch.length === 1) {
-            await setWatch([])
-            await saveToDb()
-            await setCoins([])
-        } else {
+
             const index = arr.findIndex(x => x.ticker === tick)
             if (index > -1) { arr.splice(index, 1) }
             await setWatch(arr)
             await fetchData()
             await saveToDb()
+            if (watch.length === 0) setCoins([])
+    }
+
+    function getTotals() {
+        let total =0;
+        for (var i=0; i < watch.length; i++) {
+            for (var x=0; x < coins.length; x++) {
+                if (watch[i].ticker === coins[x].id) {
+                    total += (watch[i].holdings * coins[x].price)
+                }
+            }
+            
         }
+        return total;
+
     }
 
     function saveToDb() {
@@ -49,6 +60,7 @@ export default function Portfolio(props) {
             .update({
                 watch,
             });
+            
     }
 
     // fetch data
@@ -111,6 +123,7 @@ export default function Portfolio(props) {
                                     label="Holdings"
                                     type="number"
                                     name="holdings"
+                                    placeholder="0"
                                     style={{backgroundColor: 'white'}}
                                     fullWidth
                                     variant="filled"
@@ -138,12 +151,15 @@ export default function Portfolio(props) {
                                     ADD
                                 </Button>
                             </Grid>
+                            <Grid item xs={12} align="center">
+                                <Paper style={{maxWidth: '400px', margin: '20px 10px 0 10px', fontSize: '25px', padding: '5px', backgroundColor: '#66bcc4'}}>Total Value: ${getTotals().toFixed(2)}</Paper>
+                            </Grid>
                         </Grid>
                     </form>
                 </Grid>
                 {coins.map((coin) => (
                     <Grid item xs={12} md={8} key={coin.id} align="center">
-                        <Ticker coin={coin} holdings={watch} deleteTicker={() => deleteTicker(coin.id)}/>
+                        <Ticker coin={coin} holdings={watch} deleteTicker={() => deleteTicker(coin.id)} />
                     </Grid>
                 ))}
             </Grid>
