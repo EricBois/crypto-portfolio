@@ -13,8 +13,9 @@ var axios = require("axios");
 export default function Portfolio(props) {
     const { user } = props;
     const { firebase } = useContext(FirebaseContext);
-    const [watch, setWatch] = useState([])
-    const [coins, setCoins] = useState([])
+    const [watch, setWatch] = useState([]);
+    const [coins, setCoins] = useState([]);
+    const [refreshing, setRefresh] = useState(false);
 
     const formik = useFormik({
         initialValues: {
@@ -31,23 +32,23 @@ export default function Portfolio(props) {
     async function deleteTicker(tick) {
         let arr = watch
 
-            const index = arr.findIndex(x => x.ticker === tick)
-            if (index > -1) { arr.splice(index, 1) }
-            await setWatch(arr)
-            await fetchData()
-            await saveToDb()
-            if (watch.length === 0) setCoins([])
+        const index = arr.findIndex(x => x.ticker === tick)
+        if (index > -1) { arr.splice(index, 1) }
+        await setWatch(arr)
+        await fetchData()
+        await saveToDb()
+        if (watch.length === 0) setCoins([])
     }
 
     function getTotals() {
-        let total =0;
-        for (var i=0; i < watch.length; i++) {
-            for (var x=0; x < coins.length; x++) {
+        let total = 0;
+        for (var i = 0; i < watch.length; i++) {
+            for (var x = 0; x < coins.length; x++) {
                 if (watch[i].ticker === coins[x].id) {
                     total += (watch[i].holdings * coins[x].price)
                 }
             }
-            
+
         }
         return total;
 
@@ -60,7 +61,7 @@ export default function Portfolio(props) {
             .update({
                 watch,
             });
-            
+
     }
 
     // fetch data
@@ -84,6 +85,12 @@ export default function Portfolio(props) {
                     console.log("Error fetching data from nomics", err);
                 });
         }
+    }
+
+    function refreshData() {
+        fetchData()
+        setRefresh(true)
+        setTimeout(() => setRefresh(false), 2000);
     }
 
     async function getInitialData() {
@@ -115,7 +122,7 @@ export default function Portfolio(props) {
                 <Grid item xs={12}>
                     <form onSubmit={formik.handleSubmit}>
                         <Grid container justifyContent="center">
-                            <Grid item xs={10} sm={6} md={4} lg={3}>
+                            <Grid item xs={10} sm={6} md={4} lg={3} style={{ textAlign: 'center' }}>
                                 <TextField
                                     value={formik.values.holdings}
                                     onChange={formik.handleChange}
@@ -124,7 +131,7 @@ export default function Portfolio(props) {
                                     type="number"
                                     name="holdings"
                                     placeholder="0"
-                                    style={{backgroundColor: 'white'}}
+                                    style={{ backgroundColor: 'white' }}
                                     fullWidth
                                     variant="filled"
                                     error={formik.touched.holdings && Boolean(formik.errors.holdings)}
@@ -136,23 +143,39 @@ export default function Portfolio(props) {
                                     margin="normal"
                                     label="Ticker  BTC / ADA / ETH ..."
                                     name="ticker"
-                                    style={{backgroundColor: 'white'}}
+                                    style={{ backgroundColor: 'white' }}
                                     fullWidth
                                     variant="filled"
                                     error={formik.touched.ticker && Boolean(formik.errors.ticker)}
                                     helperText={formik.touched.ticker && formik.errors.ticker}
                                 />
+                                {!refreshing ?
+                                    <Button
+                                        style={{ backgroundColor: '#a30303', color: '#fff', width: '48%', marginRight: '5px' }}
+                                        variant="contained"
+                                        onClick={() => refreshData()}
+                                    >
+                                        Refresh Data
+                                    </Button> :
+                                    <Button
+                                        style={{ backgroundColor: '#000', color: '#fff', width: '48%', marginRight: '5px' }}
+                                        variant="contained"
+                                        disabled
+                                    >
+                                        Done!
+                                    </Button>
+                                }
                                 <Button
-                                    style={{backgroundColor: '#4e7a94', color: '#fff'}}
+                                    style={{ backgroundColor: '#4e7a94', color: '#fff', width: '48%' }}
                                     variant="contained"
-                                    fullWidth
+
                                     type="submit"
                                 >
                                     ADD
                                 </Button>
                             </Grid>
                             <Grid item xs={12} align="center">
-                                <Paper style={{maxWidth: '400px', margin: '20px 10px 0 10px', fontSize: '25px', padding: '5px', backgroundColor: '#66bcc4'}}>Total Value: ${getTotals().toFixed(2)}</Paper>
+                                <Paper style={{ maxWidth: '400px', margin: '20px 10px 0 10px', fontSize: '25px', padding: '5px', backgroundColor: '#66bcc4' }}>Total Value: ${getTotals().toFixed(2)}</Paper>
                             </Grid>
                         </Grid>
                     </form>
