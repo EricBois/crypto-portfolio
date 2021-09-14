@@ -56,8 +56,8 @@ function SignIn(props) {
             <form onSubmit={formik.handleSubmit}>
                 <Grid container spacing={2}>
                     <Grid item className={classes.grid} xs={10}>
-                        <Typography align="center" variant="h3">
-                            Sign In
+                        <Typography align="center" variant="h4">
+                            Sign-In
                         </Typography>
                     </Grid>
                     <Grid className={classes.grid} item xs={10}>

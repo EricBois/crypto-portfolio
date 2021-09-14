@@ -61,9 +61,9 @@ function SignUp(props) {
     <Paper elevation={20} className={classes.root}>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item style={{ margin: 'auto' }} xs={10}>
-            <Typography align="center" variant="h3">
-              Sign Up
+          <Grid item xs={10} className={classes.grid}>
+            <Typography align="center" variant="h4">
+              Create a Account
             </Typography>
           </Grid>
           <Grid className={classes.grid} item xs={10}>

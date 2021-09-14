@@ -142,8 +142,8 @@ export default function Portfolio(props) {
                     </form>
                 </Grid>
                 {coins.map((coin) => (
-                    <Grid item xs={12} md={8} key={coin.id}>
-                        <Ticker coin={coin} holdings={watch} deleteTicker={() => deleteTicker(coin.id)} />
+                    <Grid item xs={12} md={8} key={coin.id} align="center">
+                        <Ticker coin={coin} holdings={watch} deleteTicker={() => deleteTicker(coin.id)}/>
                     </Grid>
                 ))}
             </Grid>

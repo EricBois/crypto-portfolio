@@ -14,10 +14,8 @@ const useStyles = makeStyles({
         borderRadius: '10px',
         color: '#fff',
         maxWidth: '450px',
-        margin: '10px auto',
-        padding: '5px',
-        display: 'flex',
-        flexDirection: 'column',
+        margin: '10px',
+        opacity: '.9'
     },
     title: {
         textAlign: 'center'
@@ -40,30 +38,31 @@ export default function Ticker(props) {
     const tradingView = `https://www.tradingview.com/symbols/${coin.id}USDT/`
 
     return (
-
-        <Card className={classes.root}>
-            <CardContent>
-                <div className={classes.iconContainer}><Icon >
-                    <img className={classes.imageIcon} src={coin.logo_url} alt="icon"/>
-                </Icon></div>
-                <Typography className={classes.title} variant="h5" gutterBottom>
-                    {coin.name}
-                </Typography>
-                <Typography variant="h6">Holdings: {parseFloat(currentHolding.holdings).toFixed(2)}</Typography>
-                <Divider />
-                <Typography variant="h6">
-                    Current Price: ${parseFloat(coin.price).toFixed(5)}
-                </Typography>
-                <Divider />
-                <Typography variant="h6">
-                    Assets Value: ${(parseFloat(coin.price) * parseFloat(currentHolding.holdings)).toFixed(2)}
-                </Typography>
-                <Divider />
-            </CardContent>
-            <CardActions>
-                <Button variant="contained" style={{ backgroundColor: '#B8D8D8' }} size="small" href={tradingView} target="_blank">TradingView</Button>
-                <Button variant="contained" style={{ backgroundColor: '#FE5F55' }} className="btnDelete" size="small" onClick={deleteTicker}>Delete</Button>
-            </CardActions>
-        </Card>
+        <div>
+            <Card className={classes.root} elevation={5}>
+                <CardContent>
+                    <div className={classes.iconContainer}><Icon >
+                        <img className={classes.imageIcon} src={coin.logo_url} alt="icon" />
+                    </Icon></div>
+                    <Typography className={classes.title} variant="h6" gutterBottom>
+                        {coin.name}
+                    </Typography>
+                    <Typography variant="subtitle2">Holdings: {parseFloat(currentHolding.holdings).toFixed(2)}</Typography>
+                    <Divider />
+                    <Typography variant="subtitle2">
+                        Current Price: ${parseFloat(coin.price).toFixed(5)}
+                    </Typography>
+                    <Divider />
+                    <Typography variant="subtitle2">
+                        Assets Value: ${(parseFloat(coin.price) * parseFloat(currentHolding.holdings)).toFixed(2)}
+                    </Typography>
+                    <Divider />
+                </CardContent>
+                <CardActions>
+                    <Button variant="contained" style={{ backgroundColor: '#B8D8D8' }} size="small" href={tradingView} target="_blank">TradingView</Button>
+                    <Button variant="contained" style={{ backgroundColor: '#FE5F55' }} className="btnDelete" size="small" onClick={deleteTicker}>Delete</Button>
+                </CardActions>
+            </Card>
+        </div>
     )
 }
