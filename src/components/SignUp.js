@@ -13,7 +13,8 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
     root: {
         maxWidth: '400px',
-        margin: 'auto',
+        padding: '20px',
+        margin: '5px'
     },
     grid: {
         margin: 'auto'

@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Icon from '@material-ui/core/Icon';
 
 const useStyles = makeStyles({
     root: {
@@ -23,6 +24,12 @@ const useStyles = makeStyles({
     },
     btnDelete: {
         backgroundColor: '#000'
+    },
+    iconContainer: {
+        textAlign: 'center'
+    },
+    imageIcon: {
+        height: '50px'
     }
 });
 
@@ -36,8 +43,11 @@ export default function Ticker(props) {
 
         <Card className={classes.root}>
             <CardContent>
+                <div className={classes.iconContainer}><Icon >
+                    <img className={classes.imageIcon} src={coin.logo_url} alt="icon"/>
+                </Icon></div>
                 <Typography className={classes.title} variant="h5" gutterBottom>
-                {coin.name}
+                    {coin.name}
                 </Typography>
                 <Typography variant="h6">Holdings: {parseFloat(currentHolding.holdings).toFixed(2)}</Typography>
                 <Divider />
@@ -51,8 +61,8 @@ export default function Ticker(props) {
                 <Divider />
             </CardContent>
             <CardActions>
-                <Button variant="contained" style={{backgroundColor: '#B8D8D8'}} size="small" href={tradingView} target="_blank">TradingView</Button>
-                <Button variant="contained" style={{backgroundColor: '#FE5F55'}} className="btnDelete" size="small" onClick={deleteTicker}>Delete</Button>
+                <Button variant="contained" style={{ backgroundColor: '#B8D8D8' }} size="small" href={tradingView} target="_blank">TradingView</Button>
+                <Button variant="contained" style={{ backgroundColor: '#FE5F55' }} className="btnDelete" size="small" onClick={deleteTicker}>Delete</Button>
             </CardActions>
         </Card>
     )
