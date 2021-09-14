@@ -122,7 +122,8 @@ export default function Portfolio(props) {
                 <Grid item xs={12}>
                     <form onSubmit={formik.handleSubmit}>
                         <Grid container justifyContent="center">
-                            <Grid item xs={10} sm={6} md={4} lg={3} style={{ textAlign: 'center' }}>
+                            <Grid item xs={11} sm={7} md={6} lg={4} style={{ textAlign: 'center' }}>
+                                <Paper style={{padding: '1rem 1rem', marginTop: '1rem', backgroundColor: 'rgba(0,0,0,.2'}}>
                                 <TextField
                                     value={formik.values.holdings}
                                     onChange={formik.handleChange}
@@ -155,7 +156,7 @@ export default function Portfolio(props) {
                                         variant="contained"
                                         onClick={() => refreshData()}
                                     >
-                                        Refresh Data
+                                        Refresh
                                     </Button> :
                                     <Button
                                         style={{ backgroundColor: '#000', color: '#fff', width: '48%', marginRight: '5px' }}
@@ -173,6 +174,7 @@ export default function Portfolio(props) {
                                 >
                                     ADD
                                 </Button>
+                                </Paper>
                             </Grid>
                             <Grid item xs={12} align="center">
                                 <Paper style={{ maxWidth: '400px', margin: '20px 10px 0 10px', fontSize: '25px', padding: '5px', backgroundColor: '#66bcc4' }}>Total Value: ${getTotals().toFixed(2)}</Paper>
