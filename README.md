@@ -15,6 +15,8 @@ Authentication & Database works with Firebase.
 
 ## TO-DO
 - Profit % tracker
+- Stock market
+- autocomplete (suggestion) when writing ticker
 - Animated card with more information ( graph and market data ) on click
 - unit testing
-- PWA icon and more detailed confi
+- PWA icon and more detailed config
