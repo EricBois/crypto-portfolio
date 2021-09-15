@@ -6,7 +6,7 @@ Authentication & Database works with Firebase.
 ## Live version
 
 - [https://cryptofolio1.netlify.app](https://cryptofolio1.netlify.app/)
-- user: demo passwd: demo
+- user: demo@gmail.com passwd: demodemo
 
 ## Steps To Install
 - git clone this Repository
