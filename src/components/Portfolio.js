@@ -42,13 +42,15 @@ export default function Portfolio(props) {
 
     function getTotals() {
         let total = 0;
-        for (var i = 0; i < watch.length; i++) {
-            for (var x = 0; x < coins.length; x++) {
-                if (watch[i].ticker === coins[x].id) {
-                    total += (watch[i].holdings * coins[x].price)
+        if (watch && coins) {
+            for (var i = 0; i < watch.length; i++) {
+                for (var x = 0; x < coins.length; x++) {
+                    if (watch[i].ticker === coins[x].id) {
+                        total += (watch[i].holdings * coins[x].price)
+                    }
                 }
-            }
 
+            }
         }
         return total;
 
@@ -88,9 +90,11 @@ export default function Portfolio(props) {
     }
 
     function refreshData() {
-        fetchData()
-        setRefresh(true)
-        setTimeout(() => setRefresh(false), 2000);
+        if (watch && coins) {
+            fetchData()
+            setRefresh(true)
+            setTimeout(() => setRefresh(false), 2000);
+        }
     }
 
     async function getInitialData() {
@@ -99,7 +103,11 @@ export default function Portfolio(props) {
             .doc(user.uid)
             .get()
             .then((user) => {
-                setWatch(user.data().watch)
+                if (user.data()) {
+                    setWatch(user.data().watch)
+                } else {
+                    setWatch([])
+                }
             });
     }
 
@@ -117,67 +125,67 @@ export default function Portfolio(props) {
     }, [watch])
 
     return (
-        <div style={{ minHeight: '90vh' }}>
+        <div style={{ minHeight: '90vh'}}>
             <Grid container alignItems="center" justifyContent="center" spacing={1} >
                 <Grid item xs={12}>
                     <form onSubmit={formik.handleSubmit}>
                         <Grid container justifyContent="center">
-                            <Grid item xs={11} sm={7} md={6} lg={4} style={{ textAlign: 'center' }}>
-                                <Paper style={{padding: '1rem 1rem', marginTop: '1rem', backgroundColor: 'rgba(0,0,0,.2'}}>
-                                <TextField
-                                    value={formik.values.holdings}
-                                    onChange={formik.handleChange}
-                                    margin="normal"
-                                    label="Holdings"
-                                    type="number"
-                                    name="holdings"
-                                    placeholder="0"
-                                    style={{ backgroundColor: 'white' }}
-                                    fullWidth
-                                    variant="filled"
-                                    error={formik.touched.holdings && Boolean(formik.errors.holdings)}
-                                    helperText={formik.touched.holdings && formik.errors.holdings}
-                                />
-                                <TextField
-                                    value={formik.values.ticker}
-                                    onChange={formik.handleChange}
-                                    margin="normal"
-                                    label="Ticker  BTC / ADA / ETH ..."
-                                    name="ticker"
-                                    style={{ backgroundColor: 'white' }}
-                                    fullWidth
-                                    variant="filled"
-                                    error={formik.touched.ticker && Boolean(formik.errors.ticker)}
-                                    helperText={formik.touched.ticker && formik.errors.ticker}
-                                />
-                                {!refreshing ?
+                            <Grid item xs={10} sm={6} md={5} lg={4} style={{ textAlign: 'center' }}>
+                                <Paper style={{ padding: '1rem 1rem', marginTop: '1rem', backgroundColor: 'rgba(0,0,0,.2' }}>
+                                    <TextField
+                                        value={formik.values.holdings}
+                                        onChange={formik.handleChange}
+                                        margin="normal"
+                                        label="Holdings"
+                                        type="number"
+                                        name="holdings"
+                                        placeholder="0"
+                                        style={{ backgroundColor: 'white' }}
+                                        fullWidth
+                                        variant="filled"
+                                        error={formik.touched.holdings && Boolean(formik.errors.holdings)}
+                                        helperText={formik.touched.holdings && formik.errors.holdings}
+                                    />
+                                    <TextField
+                                        value={formik.values.ticker}
+                                        onChange={formik.handleChange}
+                                        margin="normal"
+                                        label="Ticker  BTC / ADA / ETH ..."
+                                        name="ticker"
+                                        style={{ backgroundColor: 'white' }}
+                                        fullWidth
+                                        variant="filled"
+                                        error={formik.touched.ticker && Boolean(formik.errors.ticker)}
+                                        helperText={formik.touched.ticker && formik.errors.ticker}
+                                    />
+                                    {!refreshing ?
+                                        <Button
+                                            style={{ backgroundColor: '#a30303', color: '#fff', width: '48%', marginRight: '5px' }}
+                                            variant="contained"
+                                            onClick={() => refreshData()}
+                                        >
+                                            Refresh
+                                        </Button> :
+                                        <Button
+                                            style={{ backgroundColor: '#000', color: '#fff', width: '48%', marginRight: '5px' }}
+                                            variant="contained"
+                                            disabled
+                                        >
+                                            Done!
+                                        </Button>
+                                    }
                                     <Button
-                                        style={{ backgroundColor: '#a30303', color: '#fff', width: '48%', marginRight: '5px' }}
+                                        style={{ backgroundColor: '#4e7a94', color: '#fff', width: '48%' }}
                                         variant="contained"
-                                        onClick={() => refreshData()}
-                                    >
-                                        Refresh
-                                    </Button> :
-                                    <Button
-                                        style={{ backgroundColor: '#000', color: '#fff', width: '48%', marginRight: '5px' }}
-                                        variant="contained"
-                                        disabled
-                                    >
-                                        Done!
-                                    </Button>
-                                }
-                                <Button
-                                    style={{ backgroundColor: '#4e7a94', color: '#fff', width: '48%' }}
-                                    variant="contained"
 
-                                    type="submit"
-                                >
-                                    ADD
-                                </Button>
+                                        type="submit"
+                                    >
+                                        ADD
+                                    </Button>
                                 </Paper>
                             </Grid>
                             <Grid item xs={12} align="center">
-                                <Paper style={{ maxWidth: '400px', margin: '20px 10px 0 10px', fontSize: '25px', padding: '5px', backgroundColor: '#66bcc4' }}>Total Value: ${getTotals().toFixed(2)}</Paper>
+                                <Paper style={{ maxWidth: '400px', margin: '20px 10px 0 10px', fontSize: '25px', padding: '5px', backgroundColor: 'rgba(102, 188, 196, .7)', color: '#f2f2f2' }}>Total Value: <Paper style={{ padding: '2px 8px', display: 'inline-block' }}>${getTotals().toFixed(2)}</Paper></Paper>
                             </Grid>
                         </Grid>
                     </form>
