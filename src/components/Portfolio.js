@@ -7,10 +7,36 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        minHeight: '90vh'
+    },
+    paperBack: {
+        padding: '.8rem .6rem',
+        margin: '1rem .7rem',
+        background: 'rgba(0,0,0,0.2)',
+        maxWidth: '450px',
+    },
+    inputs: {
+        backgroundColor: 'white'
+    },
+    refreshBtn: {
+        backgroundColor: '#a30303',
+        color: '#fff',
+        width: '48%',
+        marginRight: '5px'
+    },
+    addBtn: {
+
+    }
+}));
 
 var axios = require("axios");
 
 export default function Portfolio(props) {
+    const classes = useStyles();
     const { user } = props;
     const { firebase } = useContext(FirebaseContext);
     const [watch, setWatch] = useState([]);
@@ -125,13 +151,13 @@ export default function Portfolio(props) {
     }, [watch])
 
     return (
-        <div style={{ minHeight: '90vh'}}>
+        <div className={classes.root}>
             <Grid container alignItems="center" justifyContent="center" spacing={1} >
                 <Grid item xs={12}>
                     <form onSubmit={formik.handleSubmit}>
                         <Grid container justifyContent="center">
-                            <Grid item xs={10} sm={6} md={5} lg={4} style={{ textAlign: 'center' }}>
-                                <Paper style={{ padding: '1rem 1rem', marginTop: '1rem', backgroundColor: 'rgba(0,0,0,.2' }}>
+                            <Grid item xs={12} align="center">
+                                <Paper className={classes.paperBack}>
                                     <TextField
                                         value={formik.values.holdings}
                                         onChange={formik.handleChange}
@@ -140,7 +166,7 @@ export default function Portfolio(props) {
                                         type="number"
                                         name="holdings"
                                         placeholder="0"
-                                        style={{ backgroundColor: 'white' }}
+                                        className={classes.inputs}
                                         fullWidth
                                         variant="filled"
                                         error={formik.touched.holdings && Boolean(formik.errors.holdings)}
@@ -152,7 +178,7 @@ export default function Portfolio(props) {
                                         margin="normal"
                                         label="Ticker  BTC / ADA / ETH ..."
                                         name="ticker"
-                                        style={{ backgroundColor: 'white' }}
+                                        className={classes.inputs}
                                         fullWidth
                                         variant="filled"
                                         error={formik.touched.ticker && Boolean(formik.errors.ticker)}
@@ -160,7 +186,7 @@ export default function Portfolio(props) {
                                     />
                                     {!refreshing ?
                                         <Button
-                                            style={{ backgroundColor: '#a30303', color: '#fff', width: '48%', marginRight: '5px' }}
+                                            className={classes.refreshBtn}
                                             variant="contained"
                                             onClick={() => refreshData()}
                                         >
@@ -185,7 +211,7 @@ export default function Portfolio(props) {
                                 </Paper>
                             </Grid>
                             <Grid item xs={12} align="center">
-                                <Paper style={{ maxWidth: '400px', margin: '20px 10px 0 10px', fontSize: '25px', padding: '5px', backgroundColor: 'rgba(102, 188, 196, .7)', color: '#f2f2f2' }}>Total Value: <Paper style={{ padding: '2px 8px', display: 'inline-block' }}>${getTotals().toFixed(2)}</Paper></Paper>
+                                <Paper style={{ maxWidth: '400px', margin: '5px 10px 0 10px', fontSize: '25px', padding: '5px', backgroundColor: 'rgba(102, 188, 196, .7)', color: '#f2f2f2' }}>Total Value: <Paper style={{ padding: '2px 8px', display: 'inline-block' }}>${getTotals().toFixed(2)}</Paper></Paper>
                             </Grid>
                         </Grid>
                     </form>
