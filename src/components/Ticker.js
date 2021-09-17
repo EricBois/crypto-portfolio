@@ -9,12 +9,12 @@ import Icon from '@material-ui/core/Icon';
 
 const useStyles = makeStyles({
     root: {
-        backgroundColor: 'rgba(79, 99, 103, .8)',
+        backgroundColor: 'rgba(0, 88, 122, .6)',
         border: 0,
         borderRadius: '10px',
         color: '#fff',
         maxWidth: '450px',
-        margin: '10px',
+        margin: '0 10px',
     },
     title: {
         textAlign: 'center'

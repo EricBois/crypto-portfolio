@@ -13,10 +13,15 @@ const useStyles = makeStyles((theme) => ({
     root: {
         minHeight: '90vh'
     },
+    paperContainer: {
+        maxWidth: '500px',
+        background: 'rgba(15, 48, 87, .8)',
+        paddingBottom: '2rem'
+    },
     paperBack: {
         padding: '.8rem .6rem',
         margin: '1rem .7rem',
-        background: 'rgba(0,0,0,0.2)',
+        background: 'rgba(0, 136, 145, .4)',
         maxWidth: '450px',
     },
     inputs: {
@@ -151,7 +156,8 @@ export default function Portfolio(props) {
     }, [watch])
 
     return (
-        <div className={classes.root}>
+        <Grid container alignItems="center" justifyContent="center" className={classes.root}>
+            <Paper variant="outlined" className={classes.paperContainer}>
             <Grid container alignItems="center" justifyContent="center" spacing={1} >
                 <Grid item xs={12}>
                     <form onSubmit={formik.handleSubmit}>
@@ -211,17 +217,18 @@ export default function Portfolio(props) {
                                 </Paper>
                             </Grid>
                             <Grid item xs={12} align="center">
-                                <Paper style={{ maxWidth: '400px', margin: '5px 10px 0 10px', fontSize: '25px', padding: '5px', backgroundColor: 'rgba(102, 188, 196, .7)', color: '#f2f2f2' }}>Total Value: <Paper style={{ padding: '2px 8px', display: 'inline-block' }}>${getTotals().toFixed(2)}</Paper></Paper>
+                                <Paper style={{ maxWidth: '400px', margin: '0 10px 5px 10px', fontSize: '25px', padding: '5px', backgroundColor: 'rgba(231, 231, 222, .2)', color: '#f2f2f2' }}>Total Value: <Paper style={{ padding: '2px 8px', display: 'inline-block', backgroundColor: 'rgba(231, 231, 222, 1)' }}>&#36;{getTotals().toFixed(2)}</Paper></Paper>
                             </Grid>
                         </Grid>
                     </form>
                 </Grid>
                 {coins.map((coin) => (
-                    <Grid item xs={12} md={8} key={coin.id} align="center">
+                    <Grid item xs={12} key={coin.id} align="center">
                         <Ticker coin={coin} holdings={watch} deleteTicker={() => deleteTicker(coin.id)} />
                     </Grid>
                 ))}
             </Grid>
-        </div>
+            </Paper>
+        </Grid>
     )
 }
