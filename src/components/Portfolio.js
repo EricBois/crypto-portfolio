@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         minHeight: '90vh'
     },
     paperContainer: {
-        maxWidth: '500px',
+        minHeight: '600px',
         background: 'rgba(15, 48, 87, .8)',
         paddingBottom: '2rem'
     },
@@ -157,6 +157,7 @@ export default function Portfolio(props) {
 
     return (
         <Grid container alignItems="center" justifyContent="center" className={classes.root}>
+            <Grid item xs={12} md={10} lg={8}>
             <Paper variant="outlined" className={classes.paperContainer}>
             <Grid container alignItems="center" justifyContent="center" spacing={1} >
                 <Grid item xs={12}>
@@ -223,12 +224,13 @@ export default function Portfolio(props) {
                     </form>
                 </Grid>
                 {coins.map((coin) => (
-                    <Grid item xs={12} key={coin.id} align="center">
+                    <Grid item xs={12} sm={6} md={4} lg={4} key={coin.id} align="center">
                         <Ticker coin={coin} holdings={watch} deleteTicker={() => deleteTicker(coin.id)} />
                     </Grid>
                 ))}
             </Grid>
             </Paper>
+            </Grid>
         </Grid>
     )
 }
