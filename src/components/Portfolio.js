@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         minHeight: '90vh'
     },
     paperContainer: {
-        minHeight: '600px',
+        minHeight: '550px',
         background: 'rgba(15, 48, 87, .8)',
         paddingBottom: '2rem'
     },
@@ -169,7 +169,7 @@ export default function Portfolio(props) {
                                         value={formik.values.holdings}
                                         onChange={formik.handleChange}
                                         margin="normal"
-                                        label="Holdings"
+                                        label="Quantity"
                                         type="number"
                                         name="holdings"
                                         placeholder="0"
@@ -183,7 +183,7 @@ export default function Portfolio(props) {
                                         value={formik.values.ticker}
                                         onChange={formik.handleChange}
                                         margin="normal"
-                                        label="Ticker  BTC / ADA / ETH ..."
+                                        label="Ticker (BTC / ADA / ETH ...)"
                                         name="ticker"
                                         className={classes.inputs}
                                         fullWidth
