@@ -1,19 +1,16 @@
 # Crypto Portfolio
 
-This is a crypto portfolio tracker made with React & Material-UI.
+This is a crypto portfolio tracker made with React & Material-UI. ( PWA )
 Authentication & Database works with Firebase.
 
-## Live version
-
-- [https://cryptofolio1.netlify.app](https://cryptofolio1.netlify.app/)
-- user: demo@gmail.com passwd: demodemo
-
 ## Steps To Install
+
 - git clone this Repository
 - npm install
 - npm run start
 
 ## TO-DO
+
 - Profit % tracker
 - Stock market
 - autocomplete (suggestion) when writing ticker
